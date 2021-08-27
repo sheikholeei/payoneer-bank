@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>payoneer-bank</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="login-area">
+        <h1 class="text-center heading">Welcome to Payoneer-bank</h1>
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input type="email" class="form-control" placeholder="Enter your email">
+            <br>
+            <input type="password" class="form-control" placeholder="Enter your password"><br>
+            <button id="login" type="button" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+
+    <div id="transaction-area">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="current-deposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2> $<span id="current-withdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$<span id="current-balance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h3>Deposit</h3>
+                    <input type="text" id="deposit-amount" class="form-control" placeholder="Enter your desire amount">
+                    <br>
+                    <button id="adddeposit" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h3>Withdraw</h3>
+                    <input type="text" id="withdraw-amount" class="form-control"
+                        placeholder="$ amount you want to withdraw">
+                    <br>
+                    <button id="addwithdraw" class="btn btn-success">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        // login button event handler
+        const login = document.getElementById("login");
+        login.addEventListener("click", function () {
+            const submitArea = document.getElementById("login-area");
+            submitArea.style.display = "none";
+
+            const transactionArea = document.getElementById("transaction-area");
+            transactionArea.style.display = "block";
+        })
+
+
+        // Deposit button event handler
+
+        const depositBtn = document.getElementById("adddeposit");
+        depositBtn.addEventListener("click", function () {
+
+            const depositNum = getInput("deposit-amount");
+            updateSpan("current-deposit", depositNum);
+            updateSpan("current-balance", depositNum);
+            document.getElementById("deposit-amount").value = "";
+        })
+
+        function updateSpan(id, depositeNum) {
+            const toilam = document.getElementById(id).innerText;
+            const notuntoilam = parseFloat(toilam);
+            const total = depositeNum + notuntoilam;
+            document.getElementById(id).innerText = total;
+        }
+
+        // withdraw button eventhandler
+
+        const addWithdraw = document.getElementById("addwithdraw");
+        addWithdraw.addEventListener("click", function () {
+
+            const withDrawNum = getInput("withdraw-amount");
+            updateSpan("current-withdraw", withDrawNum);
+            updateSpan("current-balance", -1*withDrawNum);
+            document.getElementById("withdraw-amount").value = "";
+        })
+
+        
+
+        // jatiya function
+
+        function getInput(id) {
+            const amount = document.getElementById(id).value;
+            const inputNumber = parseFloat(amount);
+            return inputNumber;
+        }
+
+
+
+    </script>
+</body>
+
+</html>
